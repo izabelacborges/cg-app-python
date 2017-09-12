@@ -30,3 +30,13 @@ git clone https://github.com/izabelacborges/cg-app-python.git
 And when on the root directory for my project, execute `python3 main.py` on your terminal.
 
 ## Guidelines
+
+1. To use DDA Line plotting, fill the x1, y1, x2, y2 inputs and press the DDA button.
+1. To use Bresenham Line plotting, fill the x1, y1, x2, y2 inputs and press the Bresenham button.
+1. The Parametric Equation function is not implemented.
+1. To use Circumference plotting, fill the x1, y1, x2, y2 inputs and press the Circunferência button.
+1. The cropping/clipping function is not implemented.
+1. To use the Translation algorithm, fill the x1 and y1 inputs and press the Translação button.
+1. To use the Scaling algorithm, fill the x1 input and press the Escala button.
+1. To use the Rotation algorithm, fill the x1 input and press the Rotação button.
+1. Press Apagar to erase all things on screen.
