@@ -1,5 +1,5 @@
 from tkinter import *
-from math import pow, sqrt
+from math import cos, sin, sqrt, pow
 
 class graphics_app:
     
@@ -12,7 +12,7 @@ class graphics_app:
         x2 = int(self.x2_value.get())
         y2 = int(self.y2_value.get())
 
-        self.object_lst = [x1, y1, x2, y2]
+        self.object_lst = [x1, y1, x2, y2, "dda"]
 
         dx = x2 - x1
         dy = y2 - y1
@@ -40,7 +40,7 @@ class graphics_app:
         x2 = int(self.x2_value.get())
         y2 = int(self.y2_value.get())
 
-        self.object_lst = [x1, y1, x2, y2]
+        self.object_lst = [x1, y1, x2, y2, "bresenham"]
 
         x, y = x1, y1
         
@@ -104,7 +104,7 @@ class graphics_app:
         y = int(self.y2_value.get()) 
         radius = sqrt(pow((x - cx), 2) + pow((y - cy), 2))
 
-        self.object_lst = [x1, y1, x2, y2]
+        self.object_lst = [cx, cy, x, y, "circle"]
 
         x = 0
         y = int(radius)
@@ -134,13 +134,64 @@ class graphics_app:
     # ---------- MODIFICATIONS ----------
  
     def translate(self):
-        self.canvas.delete(ALL)
+        
+        tx = int(self.x1_value.get())
+        ty = int(self.y1_value.get())
+
+        new_x1 = self.object_lst[0] + tx
+        new_y1 = self.object_lst[1] + ty
+        new_x2 = self.object_lst[2] + tx
+        new_y2 = self.object_lst[3] + ty
+
+        self.x1_value.set(str(new_x1))
+        self.y1_value.set(str(new_y1))
+        self.x2_value.set(str(new_x2))
+        self.y2_value.set(str(new_y2))
+
+        if self.object_lst[4] == "dda":
+            self.draw_dda()
+        elif self.object_lst[4] == "circle":
+            self.draw_circle()
+        elif self.object_lst[4] == "bresenham":
+            self.draw_bresenham()
 
     def scale(self):
-        self.canvas.delete(ALL)
+        
+        sc = int(self.x1_value.get())
+
+        new_x1 = self.object_lst[0] * sc
+        new_y1 = self.object_lst[1] * sc
+        new_x2 = self.object_lst[2] * sc
+        new_y2 = self.object_lst[3] * sc
+
+        self.x1_value.set(str(new_x1))
+        self.y1_value.set(str(new_y1))
+        self.x2_value.set(str(new_x2))
+        self.y2_value.set(str(new_y2))
+
+        if self.object_lst[4] == "dda":
+            self.draw_dda()
+        elif self.object_lst[4] == "circle":
+            self.draw_circle()
+        elif self.object_lst[4] == "bresenham":
+            self.draw_bresenham()
 
     def rotate(self):
-        self.canvas.delete(ALL)
+
+        rt = int(self.x1_value.get())
+
+        new_x1 = int((self.object_lst[0] * cos(rt)) - (self.object_lst[1] * sin(rt)))
+        new_y1 = int((self.object_lst[0] * sin(rt)) - (self.object_lst[1] * cos(rt)))
+
+        self.x1_value.set(str(new_x1))
+        self.y1_value.set(str(new_y1))
+
+        if self.object_lst[4] == "dda":
+            self.draw_dda()
+        elif self.object_lst[4] == "circle":
+            self.draw_circle()
+        elif self.object_lst[4] == "bresenham":
+            self.draw_bresenham()
 
     def crop(self):
         pass
@@ -150,6 +201,11 @@ class graphics_app:
     def clear_canvas(self):
         self.object_lst = []
         self.canvas.delete(ALL)
+
+        self.x1_value.set("")
+        self.y1_value.set("")
+        self.x2_value.set("")
+        self.y2_value.set("")
 
 
     def __init__(self):
