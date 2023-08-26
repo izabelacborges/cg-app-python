@@ -19,15 +19,11 @@ class graphics_app:
 
         steps, x, y = 0, x1, y1
 
-        if abs(dx) > abs(dy):
-            steps = abs(dx)
-        else:
-            steps = abs(dy)
-        
+        steps = max(abs(dx), abs(dy))
         x_increment = dx/steps
         y_increment = dy/steps
 
-        for i in range(steps):
+        for _ in range(steps):
             x = x + x_increment
             y = y + y_increment
 
@@ -43,13 +39,13 @@ class graphics_app:
         self.object_lst = [x1, y1, x2, y2, "bresenham"]
 
         x, y = x1, y1
-        
+
         self.canvas.create_rectangle(x, y, x+1, y+1)
-        
+
         dx = x2 - x1
         dy = y2 - y1
         x_increment, y_increment = 0, 0
-        
+
         if dx < 0:
             dx = dx * -1
             x_increment = -1
@@ -67,7 +63,7 @@ class graphics_app:
             c1 = 2*dy
             c2 = 2*(dy-dx)
 
-            for i in range(dx):
+            for _ in range(dx):
                 x = x + x_increment
                 if p < 0:
                     p = p + c1
@@ -81,7 +77,7 @@ class graphics_app:
             c1 = 2*dx
             c2 = 2*(dx-dy)
 
-            for i in range(dx):
+            for _ in range(dx):
                 y = y + y_increment
                 if p < 0:
                     p = p + c1
@@ -101,7 +97,7 @@ class graphics_app:
         cx = int(self.x1_value.get())
         cy = int(self.y1_value.get())
         x = int(self.x2_value.get())
-        y = int(self.y2_value.get()) 
+        y = int(self.y2_value.get())
         radius = sqrt(pow((x - cx), 2) + pow((y - cy), 2))
 
         self.object_lst = [cx, cy, x, y, "circle"]
@@ -116,8 +112,8 @@ class graphics_app:
                 p += 4 * x + 6
             else:
                 p += 4 * (x - y) + 10
-                y = y - 1
-            x = x + 1
+                y -= 1
+            x += 1
             self.draw_symmetric(x, y, cx, cy)
 
     def draw_symmetric(self, x, y, cx, cy):
@@ -224,7 +220,7 @@ class graphics_app:
         window = Tk()
         window.title("Computer Graphics App")
         window.resizable(width=False, height=False)
-        window.geometry('{}x{}'.format(win_width, win_height))
+        window.geometry(f'{win_width}x{win_height}')
 
         # ---------- SETTING CANVAS AND IMAGE ----------
 
@@ -252,13 +248,13 @@ class graphics_app:
 
         dda_button = Button(frame, text="DDA", command = self.draw_dda)
         dda_button.grid(row = 3, column = 1)
-        
+
         bresenham_button = Button(frame, text="Bresenham", command = self.draw_bresenham)
         bresenham_button.grid(row = 3, column = 2)
-        
+
         parametric_button = Button(frame, text="Equação Paramétrica", command = self.draw_parametric)
         parametric_button.grid(row = 3, column = 3)
-        
+
         circumference_button = Button(frame, text="Circunferência", command = self.draw_circle)
         circumference_button.grid(row = 3, column = 4)
 
@@ -270,10 +266,10 @@ class graphics_app:
 
         translation_button = Button(frame, text="Translação", command = self.translate)
         translation_button.grid(row = 4, column = 2)
-        
+
         scale_button = Button(frame, text="Escala", command = self.scale)
         scale_button.grid(row = 4, column = 3)
-        
+
         rotation_button = Button(frame, text="Rotação", command = self.rotate)
         rotation_button.grid(row = 4, column = 4)
 
